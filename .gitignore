@@ -103,6 +103,8 @@ ipython_config.py
 
 # celery beat schedule file
 celerybeat-schedule
+# vscode
+.vscode
 
 # SageMath parsed files
 *.sage.py
