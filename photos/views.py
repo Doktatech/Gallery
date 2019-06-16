@@ -22,3 +22,5 @@ def convert_dates(dates):
     days= ["Moday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
     day =days[day_number]
     return day 
+def past_days_photos(request):
+    # Function for getting archived photos 
