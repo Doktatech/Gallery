@@ -1,5 +1,5 @@
 {% load bootstrap4 %}
-<!-- {% load static%} -->
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +11,13 @@
     {%else%}
     <title>Photo Gallery</title>
     {%endif%}
-    {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block styles %}    
     {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
   {% endblock %}
 </head>
 <body>
-        {% include "navbar.html" %}
+    {% include "navbar.html" %}
     {%block content%}
     <h1 class="text-center">Photos for {{date|date:"l d-F Y"}}</h1> 
     {%endblock%}
