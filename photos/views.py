@@ -28,13 +28,21 @@ def past_days_photos(request,past_date):
     return render(request, 'all-photos/past-photos.html',{"date":date,"photos":photos})
 def search_results(request):
 
-        if 'photo' in request.GET and request.GET["article"]:
+        if 'photo' in request.GET and request.GET["photo"]:
             search_term = request.GET.get("photo")
-            searched_photos = Photo.search_by_title(search_term)
+            searched_photo = Image.search_by_image_name(search_term)
             message = f"{search_term}"
 
-            return render(request, 'all-photos/search.html',{"message":message,"photos": searched_articles})
+            return render(request, 'all-photos/search.html',{"message":message,"photos": searched_photo})
 
         else:
             message = "You haven't searched for any photo"
             return render(request, 'all-photos/search.html',{"message":message})
+def single_photo(request,photo_id):
+    try:
+        photo = Image.objects.get(id=photo_id)  
+    except DoesNotExist:
+        raise Http404()
+        
+    return render(request,"all-photos/photo.html",{"photo":photo})
+
