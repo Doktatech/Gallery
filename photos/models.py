@@ -37,16 +37,7 @@ class Image(models.Model):
         photos = cls.objects.filter(upload_date__date = today)
         return photos
         
-    def search_results(request):
-
-        if 'photo' in request.GET and request.GET["photo"]:
-            search_term = request.GET.get("photo")
-            searched_photos = Photo.search_by_title(search_term)
-            message = f"{search_term}"
-
-            return render(request, 'all-photos/search.html',{"message":message,"photos": searched_photos})
-
-        else:
-            message = "You haven't searched for any term"
-            return render(request, 'all-photos/search.html',{"message":message})
-
+    @classmethod
+    def search_by_image_name(cls, search_term):
+        photos= cls.objects.filter(image_description__icontains=search_term)
+        return photos
