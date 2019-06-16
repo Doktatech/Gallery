@@ -1,14 +1,16 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404
 import datetime as dt 
-# Create your views here.
-def welcome(request):
-    return render(request, 'welcome.html')
+from .models import Image
+# # Create your views here.
+# def welcome(request):
+#     return render(request, 'welcome.html')
 
 def photos_of_day(request):
     date = dt.date.today()
+    photos = Image.todays_photos()
      
-    return render(request, 'all-photos/today-photos.html',{"date":date,})
+    return render(request, 'all-photos/today-photos.html',{"date":date,"photos":photos})
 
 def past_days_photos(request,past_date):
     # Function for getting archived photos 
@@ -20,6 +22,19 @@ def past_days_photos(request,past_date):
         assert False
     if  date == dt.date.today():
         return redirect(photos_of_day)
+        photos = Image.days_photos(date)
   
     
-    return render(request, 'all-photos/past-photos.html',{"date":date,})
+    return render(request, 'all-photos/past-photos.html',{"date":date,"photos":photos})
+def search_results(request):
+
+        if 'photo' in request.GET and request.GET["article"]:
+            search_term = request.GET.get("photo")
+            searched_photos = Photo.search_by_title(search_term)
+            message = f"{search_term}"
+
+            return render(request, 'all-photos/search.html',{"message":message,"photos": searched_articles})
+
+        else:
+            message = "You haven't searched for any photo"
+            return render(request, 'all-photos/search.html',{"message":message})
