@@ -8,7 +8,7 @@ from .models import Image
 
 def photos_of_day(request):
     date = dt.date.today()
-    photos = Image.todays_photos()
+    photos = Image.all_photos()
      
     return render(request, 'all-photos/today-photos.html',{"date":date,"photos":photos})
 
@@ -22,7 +22,7 @@ def past_days_photos(request,past_date):
         assert False
     if  date == dt.date.today():
         return redirect(photos_of_day)
-        photos = Image.days_photos(date)
+    photos = Image.days_photos(date)
   
     
     return render(request, 'all-photos/past-photos.html',{"date":date,"photos":photos})

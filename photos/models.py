@@ -34,8 +34,14 @@ class Image(models.Model):
         return photos
     @classmethod
     def days_photos(cls,date):
-        photos = cls.objects.filter(upload_date__date = today)
+        # today = dt.date.today()
+        photos = cls.objects.filter(upload_date__date = date)
         return photos
+    @classmethod 
+    def all_photos(cls):
+        photos = cls.objects.all()
+        return photos
+
         
     @classmethod
     def search_by_image_category(cls, search_term):
